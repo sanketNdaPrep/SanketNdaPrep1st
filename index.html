@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your Name | Study Resources & Mentorship</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f8fafc;--surface:#fff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--brand:#1e3a8a;--brand-ink:#fff;--accent:#d97706;--soft:#eff6ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1220;--surface:#111a2e;--ink:#e5e7eb;--muted:#94a3b8;--line:#1f2a44;--brand:#60a5fa;--brand-ink:#0b1220;--accent:#fbbf24;--soft:#13213f}}
+:root[data-theme="dark"]{--bg:#0b1220;--surface:#111a2e;--ink:#e5e7eb;--muted:#94a3b8;--line:#1f2a44;--brand:#60a5fa;--brand-ink:#0b1220;--accent:#fbbf24;--soft:#13213f}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
+body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;border-radius:10px;padding:.65rem 1.1rem;font-weight:600;font-size:.9rem;transition:.15s}
+.btn-p{background:var(--brand);color:var(--brand-ink)}.btn-p:hover{opacity:.9}
+.btn-o{border:1px solid var(--line);color:var(--ink)}.btn-o:hover{background:var(--soft)}
+.chip{border:1px solid var(--line);border-radius:999px;padding:.4rem .9rem;font-size:.85rem;font-weight:500;color:var(--muted);background:var(--surface)}
+.chip.on{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.muted{color:var(--muted)}.brand{color:var(--brand)}
+.tag{font-size:.7rem;font-weight:600;padding:.15rem .5rem;border-radius:6px;background:var(--soft);color:var(--brand)}
+input{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:.65rem .9rem;width:100%}
+details summary{cursor:pointer;font-weight:600;list-style:none}details summary::-webkit-details-marker{display:none}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+  1) CENTRAL DATA — the ONLY section you edit to update the site
+============================================================ -->
+<script>
+const DATA = {
+  site: {
+    name: "Your Name",
+    tagline: "Free study material, honest guidance, real results.",
+    mission: "I share the notes, plans and schedules that helped me prepare, so no aspirant has to start from zero. Everything here is free to download.",
+    email: "you@example.com",
+    bookingUrl: "https://calendly.com/your-link",      // mentorship booking link
+    whatsappUrl: "https://wa.me/910000000000",          // optional, "" to hide
+    newsletterFormUrl: "",                              // Google Form / Mailchimp link opened on signup, "" = just confirm
+    socials: [{ label: "Instagram", url: "https://instagram.com/" }, { label: "YouTube", url: "https://youtube.com/" }]
+  },
+  stats: [ { value: "50+", label: "Free PDFs" }, { value: "1,000+", label: "Downloads" }, { value: "100+", label: "Students guided" } ],
+
+  // ADD A PDF = add ONE line below. cat: notes | plans | schedules | helping
+  // link: any Google Drive share link (…/file/d/ID/view…) — it is converted automatically
+  resources: [
+    { id: "math-notes",      cat: "notes",     title: "Mathematics Formula Notes",  desc: "Algebra, trigonometry and calculus in one revision sheet.", exam: "NDA",   pages: 24, link: "https://drive.google.com/file/d/FILE_ID_1/view?usp=sharing" },
+    { id: "geography-notes", cat: "notes",     title: "Geography Handwritten Notes", desc: "Clean, exam-focused geography summary.",                    exam: "NDA",   pages: 37, link: "https://drive.google.com/file/d/FILE_ID_2/view?usp=sharing" },
+    { id: "cds-90-day",      cat: "plans",     title: "CDS 90-Day Study Plan",      desc: "Week-by-week roadmap from basics to mock tests.",           exam: "CDS",   pages: 8,  link: "https://drive.google.com/file/d/FILE_ID_3/view?usp=sharing" },
+    { id: "afcat-60-day",    cat: "plans",     title: "AFCAT 60-Day Crash Plan",    desc: "Compact plan for the final two months.",                    exam: "AFCAT", pages: 6,  link: "https://drive.google.com/file/d/FILE_ID_4/view?usp=sharing" },
+    { id: "daily-timetable", cat: "schedules", title: "Daily Timetable Template",   desc: "Printable schedule with revision slots.",                   exam: "All",   pages: 2,  link: "https://drive.google.com/file/d/FILE_ID_5/view?usp=sharing" },
+    { id: "ssb-checklist",   cat: "helping",   title: "SSB Preparation Checklist",  desc: "What to practise before the interview.",                    exam: "SSB",   pages: 5,  link: "https://drive.google.com/file/d/FILE_ID_6/view?usp=sharing" }
+  ],
+  categories: [
+    { key: "all", label: "All" }, { key: "notes", label: "Free Notes" }, { key: "plans", label: "Study Plans" },
+    { key: "schedules", label: "Schedules" }, { key: "helping", label: "Helping Material" }
+  ],
+
+  mentorship: {
+    intro: "One-to-one guidance built around your exam, your level and your time.",
+    offers: [
+      { title: "Strategy Session", desc: "60 minutes to audit your preparation and fix your plan.", price: "₹—" },
+      { title: "Monthly Mentorship", desc: "Weekly check-ins, custom schedule and doubt support.", price: "₹—" },
+      { title: "Interview Guidance", desc: "Mock interview and structured feedback.", price: "₹—" }
+    ],
+    expect: ["A personalised study plan", "Weekly accountability check-ins", "Resource recommendations", "Honest feedback, no sugar-coating"]
+  },
+
+  journey: [
+    { year: "2023", title: "Started preparation", desc: "Began preparing for defence exams with a self-made plan." },
+    { year: "2024", title: "First milestone", desc: "Replace with your achievement, rank or result." },
+    { year: "2025", title: "Began sharing notes", desc: "Published my first free PDFs for other aspirants." },
+    { year: "2026", title: "Launched this hub", desc: "Opened mentorship and a growing resource library." }
+  ],
+
+  faqs: [
+    { q: "Are the PDFs really free?", a: "Yes. Every item in the Vault is free to download." },
+    { q: "Which exams do the plans cover?", a: "NDA, CDS and AFCAT, with some material useful for SSB." },
+    { q: "How do I book a mentorship session?", a: "Use the Book a Session button and pick a slot, or message me directly." },
+    { q: "How often is new material added?", a: "Join the newsletter to hear about every new drop." }
+  ]
+};
+</script>
+
+<!-- ============================================================
+  2) ANALYTICS — paste your GA4 or PostHog snippet here
+============================================================ -->
+<script>
+/* STEP A: paste your tag below (GA4 or PostHog, or both).
+   Example GA4:
+     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script> (add in <head>)
+     window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-XXXXXXX');
+   Example PostHog: posthog.init('phc_xxx',{api_host:'https://us.i.posthog.com'}) */
+
+/* STEP B: this sends every [data-track] click to whichever tool is loaded. Do not edit. */
+function track(name, extra){
+  try{ if(window.gtag) gtag('event','hub_click',Object.assign({track_id:name},extra||{})); }catch(e){}
+  try{ if(window.posthog) posthog.capture('hub_click',Object.assign({track_id:name},extra||{})); }catch(e){}
+  try{ if(window.__debugTrack) console.log('track',name,extra); }catch(e){}
+}
+document.addEventListener('click',function(e){
+  var el=e.target.closest('[data-track]'); if(!el) return;
+  track(el.getAttribute('data-track'),{label:(el.textContent||'').trim().slice(0,60),section:(el.closest('section')||{}).id||''});
+});
+</script>
+
+<!-- ============================================================
+  3) UI — rendered from DATA, no need to edit below
+============================================================ -->
+<header class="sticky top-0 z-30 border-b backdrop-blur" style="background:color-mix(in srgb,var(--bg) 88%,transparent);border-color:var(--line);top:env(safe-area-inset-top,0px)">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+    <a href="#home" class="text-lg font-extrabold brand" id="brand" data-track="nav-logo"></a>
+    <nav class="hidden gap-6 text-sm font-medium md:flex">
+      <a href="#vault" data-track="nav-vault">Vault</a><a href="#mentorship" data-track="nav-mentorship">Mentorship</a>
+      <a href="#journey" data-track="nav-journey">Journey</a><a href="#faq" data-track="nav-faq">FAQ</a>
+    </nav>
+    <a class="btn btn-p" id="navBook" target="_blank" rel="noopener" data-track="nav-book-session">Book a Session</a>
+  </div>
+</header>
+
+<main>
+<section id="home" class="mx-auto max-w-6xl px-4 pb-14 pt-14 md:pt-24">
+  <span class="tag">Trusted by aspirants for NDA · CDS · AFCAT</span>
+  <h1 class="mt-4 max-w-3xl text-4xl font-extrabold leading-tight md:text-6xl" id="tagline"></h1>
+  <p class="muted mt-5 max-w-2xl text-lg" id="mission"></p>
+  <div class="mt-8 flex flex-wrap gap-3">
+    <a href="#vault" class="btn btn-p" data-track="hero-browse-vault">Browse Free Resources</a>
+    <a id="heroBook" target="_blank" rel="noopener" class="btn btn-o" data-track="hero-book-guidance">Get Personal Guidance</a>
+  </div>
+  <div class="mt-12 grid max-w-xl grid-cols-3 gap-4" id="stats"></div>
+</section>
+
+<section id="vault" class="mx-auto max-w-6xl px-4 py-14">
+  <h2 class="text-3xl font-extrabold">The Vault</h2>
+  <p class="muted mt-2">Free PDFs hosted on Google Drive. Search or filter to find what you need.</p>
+  <div class="mt-6 flex flex-col gap-4">
+    <input id="search" type="search" placeholder="Search notes, plans, exams (e.g. NDA, maths)…" aria-label="Search resources" data-track="vault-search">
+    <div class="flex flex-wrap gap-2" id="chips"></div>
+  </div>
+  <p class="muted mt-4 text-sm" id="count"></p>
+  <div class="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" id="grid"></div>
+</section>
+
+<section id="mentorship" class="mx-auto max-w-6xl px-4 py-14">
+  <h2 class="text-3xl font-extrabold">Personal Guidance</h2>
+  <p class="muted mt-2" id="mIntro"></p>
+  <div class="mt-8 grid gap-5 md:grid-cols-3" id="offers"></div>
+  <div class="card mt-6 p-6">
+    <h3 class="font-bold">What to expect</h3>
+    <ul class="mt-3 grid gap-2 sm:grid-cols-2" id="expect"></ul>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a id="mBook" target="_blank" rel="noopener" class="btn btn-p" data-track="mentorship-book-session">Book a Session</a>
+      <a id="mWa" target="_blank" rel="noopener" class="btn btn-o" data-track="mentorship-whatsapp">Message on WhatsApp</a>
+      <a id="mMail" class="btn btn-o" data-track="mentorship-email">Email Me</a>
+    </div>
+  </div>
+</section>
+
+<section id="journey" class="mx-auto max-w-3xl px-4 py-14">
+  <h2 class="text-3xl font-extrabold">My Journey</h2>
+  <ol class="mt-8 space-y-6 border-l-2 pl-6" style="border-color:var(--line)" id="timeline"></ol>
+</section>
+
+<section id="newsletter" class="mx-auto max-w-6xl px-4 py-14">
+  <div class="card p-8 text-center" style="background:var(--soft)">
+    <h2 class="text-2xl font-extrabold">Get new resources first</h2>
+    <p class="muted mt-2">One short email whenever a new PDF drops. No spam.</p>
+    <div class="mx-auto mt-5 flex max-w-md flex-col gap-3 sm:flex-row">
+      <input id="email" type="email" placeholder="you@example.com" aria-label="Email address">
+      <button class="btn btn-p" id="subBtn" data-track="newsletter-subscribe">Subscribe</button>
+    </div>
+    <p class="mt-3 text-sm" id="subMsg" role="status"></p>
+  </div>
+</section>
+
+<section id="faq" class="mx-auto max-w-3xl px-4 py-14">
+  <h2 class="text-3xl font-extrabold">FAQ</h2>
+  <div class="mt-6 space-y-3" id="faqs"></div>
+</section>
+</main>
+
+<footer class="border-t py-8 text-center text-sm muted" style="border-color:var(--line)">
+  <div class="flex justify-center gap-4" id="socials"></div>
+  <p class="mt-3" id="copy"></p>
+</footer>
+
+<script>
+(function(){
+  var S=DATA.site, $=function(id){return document.getElementById(id)};
+  var esc=function(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+
+  // Google Drive helper: accepts /file/d/ID/..., open?id=ID or uc?id=ID links
+  function driveId(u){var m=u.match(/\/d\/([\w-]+)/)||u.match(/[?&]id=([\w-]+)/);return m?m[1]:null}
+  function viewUrl(u){var id=driveId(u);return id?'https://drive.google.com/file/d/'+id+'/view':u}
+  function dlUrl(u){var id=driveId(u);return id?'https://drive.google.com/uc?export=download&id='+id:u}
+
+  $('brand').textContent=S.name; $('tagline').textContent=S.tagline; $('mission').textContent=S.mission;
+  ['navBook','heroBook','mBook'].forEach(function(i){$(i).href=S.bookingUrl});
+  if(S.whatsappUrl)$('mWa').href=S.whatsappUrl; else $('mWa').style.display='none';
+  $('mMail').href='mailto:'+S.email; $('copy').textContent='© '+new Date().getFullYear()+' '+S.name;
+  $('stats').innerHTML=DATA.stats.map(function(s){return '<div><div class="text-2xl font-extrabold brand">'+esc(s.value)+'</div><div class="muted text-xs">'+esc(s.label)+'</div></div>'}).join('');
+  $('socials').innerHTML=S.socials.map(function(s){return '<a href="'+esc(s.url)+'" target="_blank" rel="noopener" data-track="social-'+esc(s.label.toLowerCase())+'">'+esc(s.label)+'</a>'}).join('');
+
+  // Vault
+  var state={cat:'all',q:''}, catLabel={};
+  DATA.categories.forEach(function(c){catLabel[c.key]=c.label});
+  function chips(){$('chips').innerHTML=DATA.categories.map(function(c){return '<button class="chip'+(state.cat===c.key?' on':'')+'" data-cat="'+c.key+'" data-track="filter-'+c.key+'">'+esc(c.label)+'</button>'}).join('')}
+  function grid(){
+    var q=state.q.toLowerCase();
+    var list=DATA.resources.filter(function(r){return (state.cat==='all'||r.cat===state.cat)&&(!q||(r.title+' '+r.desc+' '+r.exam+' '+(catLabel[r.cat]||'')).toLowerCase().indexOf(q)>-1)});
+    $('count').textContent=list.length+' resource'+(list.length===1?'':'s')+' found';
+    $('grid').innerHTML=list.length?list.map(function(r){return '<article class="card flex flex-col p-5">'+
+      '<div class="flex items-center justify-between"><span class="tag">'+esc(catLabel[r.cat]||r.cat)+'</span><span class="muted text-xs">'+esc(r.exam)+(r.pages?' · '+r.pages+' pages':'')+'</span></div>'+
+      '<h3 class="mt-3 text-lg font-bold">'+esc(r.title)+'</h3><p class="muted mt-1 flex-1 text-sm">'+esc(r.desc)+'</p>'+
+      '<div class="mt-4 flex gap-2"><a class="btn btn-p flex-1" href="'+esc(dlUrl(r.link))+'" target="_blank" rel="noopener" data-track="pdf-download-'+esc(r.id)+'">Download</a>'+
+      '<a class="btn btn-o" href="'+esc(viewUrl(r.link))+'" target="_blank" rel="noopener" data-track="pdf-preview-'+esc(r.id)+'">Preview</a></div></article>'}).join(''):'<p class="muted">No matches. Try another keyword.</p>';
+  }
+  $('chips').addEventListener('click',function(e){var b=e.target.closest('[data-cat]');if(!b)return;state.cat=b.dataset.cat;chips();grid()});
+  $('search').addEventListener('input',function(e){state.q=e.target.value;grid()});
+  var searchTimer;$('search').addEventListener('input',function(e){clearTimeout(searchTimer);searchTimer=setTimeout(function(){if(e.target.value)track('vault-search-query',{query:e.target.value.slice(0,40)})},900)});
+  chips();grid();
+
+  // Mentorship
+  var M=DATA.mentorship; $('mIntro').textContent=M.intro;
+  $('offers').innerHTML=M.offers.map(function(o,i){return '<div class="card p-6"><h3 class="font-bold">'+esc(o.title)+'</h3><p class="muted mt-2 text-sm">'+esc(o.desc)+'</p><p class="mt-4 font-extrabold brand">'+esc(o.price)+'</p></div>'}).join('');
+  $('expect').innerHTML=M.expect.map(function(x){return '<li class="flex gap-2 text-sm"><span class="brand">✓</span>'+esc(x)+'</li>'}).join('');
+
+  // Journey
+  $('timeline').innerHTML=DATA.journey.map(function(j){return '<li class="relative"><span class="absolute -left-[33px] top-1.5 h-3 w-3 rounded-full" style="background:var(--accent)"></span><div class="text-sm font-bold" style="color:var(--accent)">'+esc(j.year)+'</div><h3 class="font-bold">'+esc(j.title)+'</h3><p class="muted text-sm">'+esc(j.desc)+'</p></li>'}).join('');
+
+  // FAQ
+  $('faqs').innerHTML=DATA.faqs.map(function(f,i){return '<details class="card p-4" data-track="faq-'+(i+1)+'"><summary>'+esc(f.q)+'</summary><p class="muted mt-2 text-sm">'+esc(f.a)+'</p></details>'}).join('');
+
+  // Newsletter
+  $('subBtn').addEventListener('click',function(){
+    var v=$('email').value.trim(),m=$('subMsg');
+    if(!/^\S+@\S+\.\S+$/.test(v)){m.textContent='Please enter a valid email.';m.style.color='#dc2626';return}
+    try{var l=JSON.parse(localStorage.getItem('subs')||'[]');l.push(v);localStorage.setItem('subs',JSON.stringify(l))}catch(e){}
+    m.style.color='var(--brand)';m.textContent='Thanks! You are on the list.';
+    if(S.newsletterFormUrl)window.open(S.newsletterFormUrl,'_blank','noopener');
+  });
+})();
+</script>
+</body>
+</html>
