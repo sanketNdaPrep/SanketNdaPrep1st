@@ -84,27 +84,7 @@ const DATA = {
 };
 </script>
 
-<!-- ============================================================
-  2) ANALYTICS — paste your GA4 or PostHog snippet here
-============================================================ -->
-<script>
-/* STEP A: paste your tag below (GA4 or PostHog, or both).
-   Example GA4:
-     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script> (add in <head>)
-     window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-XXXXXXX');
-   Example PostHog: posthog.init('phc_xxx',{api_host:'https://us.i.posthog.com'}) */
 
-/* STEP B: this sends every [data-track] click to whichever tool is loaded. Do not edit. */
-function track(name, extra){
-  try{ if(window.gtag) gtag('event','hub_click',Object.assign({track_id:name},extra||{})); }catch(e){}
-  try{ if(window.posthog) posthog.capture('hub_click',Object.assign({track_id:name},extra||{})); }catch(e){}
-  try{ if(window.__debugTrack) console.log('track',name,extra); }catch(e){}
-}
-document.addEventListener('click',function(e){
-  var el=e.target.closest('[data-track]'); if(!el) return;
-  track(el.getAttribute('data-track'),{label:(el.textContent||'').trim().slice(0,60),section:(el.closest('section')||{}).id||''});
-});
-</script>
 
 <!-- ============================================================
   3) UI — rendered from DATA, no need to edit below
